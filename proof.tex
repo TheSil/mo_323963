@@ -1,0 +1,721 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{microtype}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Ztwo}{\mathbb Z_2}
+\newcommand{\Ot}{\mathcal O}
+\newcommand{\Ut}{\mathcal U}
+\newcommand{\vt}{v_2}
+\newcommand{\vp}{v_p}
+
+\title{Integrality of the five-step product recurrence\\
+       (MathOverflow 323963)}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove that the rational sequence defined by
+\[
+ a_{n+5}a_n=\prod_{i=1}^{4}(a_{n+i}+1),
+ \qquad a_0=a_1=a_2=a_3=a_4=1,
+\]
+consists entirely of integers.  Odd primes are controlled by a valuation-atom
+induction.  The prime~2 is treated by an alternating first integral and a
+change of variables which reveals a fourteen-step $2$-adic return.
+\end{abstract}
+
+\section{Statement and initial values}
+
+All terms are positive rational numbers, so the recurrence is well-defined.
+The first terms are
+\[
+1,1,1,1,1,16,136,9316,43398586,941718655098991,\ldots.
+\]
+
+\begin{theorem}\label{thm:main}
+For every $n\geq 0$, one has $a_n\in\Z$.
+\end{theorem}
+
+Put
+\[
+ b_n=a_n+1.
+\]
+Since $a_n\in\Q_{>0}$, it is enough to prove
+\[
+ v_p(a_n)\geq 0
+ \qquad\text{for every prime $p$ and every $n$.}                 \tag{1}
+\]
+
+\section{Odd primes}
+
+Fix an odd prime $p$.  Define integer-valued valuation atoms $t_n$ by
+\[
+ t_0=t_1=t_2=t_3=t_4=0,
+ \qquad
+ t_{n+5}=\vp(b_{n+5})-t_n\quad(n\geq0).                         \tag{2}
+\]
+Thus
+\[
+ \vp(b_{n+5})=t_{n+5}+t_n.                                     \tag{3}
+\]
+
+\subsection{The valuation identity}
+
+\begin{lemma}\label{lem:odd-identity}
+For every $n\geq0$,
+\[
+ \vp(a_{n+5})=t_{n+1}+t_{n+2}+t_{n+3}+t_{n+4}.                 \tag{4}
+\]
+\end{lemma}
+
+\begin{proof}
+The first five cases follow from
+\[
+\begin{aligned}
+ a_5&=16,\\
+ a_6&=8b_5,\\
+ a_7&=4b_5b_6,\\
+ a_8&=2b_5b_6b_7,\\
+ a_9&=b_5b_6b_7b_8.
+\end{aligned}                                                    \tag{5}
+\]
+Here the powers of~2 have zero $p$-adic valuation.
+
+Suppose (4) holds at $n$.  Taking valuations in the recurrence at $n+5$
+and using (3) gives
+\[
+\begin{aligned}
+ \vp(a_{n+10})
+ &=\sum_{j=6}^{9}\vp(b_{n+j})-\vp(a_{n+5})\\
+ &=\sum_{j=6}^{9}(t_{n+j}+t_{n+j-5})
+   -\sum_{j=1}^{4}t_{n+j}\\
+ &=\sum_{j=6}^{9}t_{n+j}.
+\end{aligned}
+\]
+This is (4) with $n$ replaced by $n+5$.  The five initial cases therefore
+cover all residue classes modulo~5.
+\end{proof}
+
+\subsection{Nonnegativity and confinement}
+
+We prove simultaneously
+\[
+ t_m\geq0                                                        \tag{6}
+\]
+and the confinement assertion
+\[
+ t_m>0\quad\Longrightarrow\quad
+ t_{m-4}=t_{m-3}=t_{m-2}=t_{m-1}=0.                             \tag{7}
+\]
+
+For the initial check, the relevant values are
+\[
+\begin{array}{c|l}
+m&b_m\\ \hline
+5&17\\
+6&137\\
+7&9317=7\cdot11^3\\
+8&43398587=29\cdot163\cdot9181\\
+9&941718655098992=2^4\cdot37\cdot1172683\cdot1356497.
+\end{array}                                                       \tag{8}
+\]
+The five displayed integers are pairwise coprime (equivalently, their odd
+parts are pairwise coprime).  Hence a prime occurring in one of them occurs
+in none of the preceding four.  Since $t_m=\vp(b_m)$ for $5\leq m\leq9$,
+this proves both (6) and (7) through $m=9$.
+
+Assume inductively that they hold through $m=k+9$.  Lemma
+\ref{lem:odd-identity} already implies
+\[
+ \vp(a_{k+10})=t_{k+6}+t_{k+7}+t_{k+8}+t_{k+9}\geq0,
+\]
+and hence $\vp(b_{k+10})=\vp(1+a_{k+10})\geq0$ by the
+non-Archimedean inequality.
+
+Set $T=t_{k+5}$.  If $T=0$, then (2) immediately gives
+$t_{k+10}=\vp(b_{k+10})\geq0$.  Suppose therefore that $T>0$.
+Confinement at $k+5$ gives
+\[
+ t_{k+1}=t_{k+2}=t_{k+3}=t_{k+4}=0,
+\]
+so (4) shows that $\vp(a_{k+5})=0$.
+
+Expanding the product of four successive $b$'s gives the exact identity
+\[
+\begin{aligned}
+ b_{k+10}a_{k+5}
+={}&b_{k+5}+a_{k+6}+a_{k+7}b_{k+6}\\
+ &+a_{k+8}b_{k+6}b_{k+7}
+  +a_{k+9}b_{k+6}b_{k+7}b_{k+8}.                               \tag{9}
+\end{aligned}
+\]
+Every summand on the right has valuation at least $T$.  Indeed,
+$\vp(b_{k+5})=t_k+T\geq T$.  Formula (4) puts the atom $T$ into
+the valuation of each of $a_{k+6},\ldots,a_{k+9}$; all additional
+$b$-factors have nonnegative valuation because their two atoms in (3)
+are nonnegative.  Thus
+\[
+ \vp(b_{k+10})\geq T
+\]
+because $a_{k+5}$ is a $p$-adic unit.  By (2), $t_{k+10}\geq0$.
+
+Finally, if $t_{k+10}>0$, then (3) and $t_{k+5}\geq0$ give
+$\vp(b_{k+10})>0$.  Therefore
+$a_{k+10}=b_{k+10}-1$ is a $p$-adic unit.  Equation (4) now yields
+\[
+ 0=\vp(a_{k+10})=t_{k+6}+t_{k+7}+t_{k+8}+t_{k+9}.
+\]
+All four terms are nonnegative, so they are all zero.  This is the next
+instance of (7), and the simultaneous induction is complete.
+
+Combining (4) and (6) proves
+\[
+ \vp(a_n)\geq0
+ \qquad(n\geq0)
+\]
+for every odd prime $p$.
+
+\section{The prime 2}
+
+The five initial numbers $b_0,\ldots,b_4$ are all even, so the preceding
+atom construction does not give nonnegative atoms at $p=2$.  We instead
+first reduce the recurrence by an exact alternating invariant.
+
+\subsection{The alternating invariant}
+
+Define
+\[
+ R_n=
+ \frac{a_na_{n+2}a_{n+4}}
+ {a_{n+1}a_{n+3}(a_{n+1}+1)(a_{n+3}+1)}.                        \tag{10}
+\]
+
+\begin{lemma}\label{lem:R}
+One has
+\[
+ R_n=
+ \begin{cases}
+ \dfrac14,&n\text{ even},\\[2mm]
+ 4,&n\text{ odd}.
+ \end{cases}                                                     \tag{11}
+\]
+\end{lemma}
+
+\begin{proof}
+Cancellation gives
+\[
+ R_nR_{n+1}
+ =\frac{a_na_{n+5}}
+ {(a_{n+1}+1)(a_{n+2}+1)(a_{n+3}+1)(a_{n+4}+1)}=1.
+\]
+Moreover $R_0=1/4$, because $a_0=\cdots=a_4=1$.  Hence the values
+alternate as in (11).
+\end{proof}
+
+Write
+\[
+ \mathcal T(z)=\frac{z(z+1)}2,
+ \qquad
+ K_n=\begin{cases}1,&n\text{ even},\\16,&n\text{ odd}.
+       \end{cases}                                                \tag{12}
+\]
+Since
+\[
+ a_{n+1}a_{n+3}(a_{n+1}+1)(a_{n+3}+1)
+ =4\mathcal T(a_{n+1})\mathcal T(a_{n+3}),
+\]
+Lemma \ref{lem:R} is equivalent to
+\[
+ a_na_{n+2}a_{n+4}
+ =K_n\mathcal T(a_{n+1})\mathcal T(a_{n+3}).                    \tag{13}
+\]
+
+\subsection{The transformed recurrence}
+
+Define, for $n\geq0$,
+\[
+ x_n=\frac{a_na_{n+2}}{\mathcal T(a_{n+1})}.                    \tag{14}
+\]
+All quantities are positive and nonzero.  Multiplying (14) at $n$ and
+$n+2$, and then using (13), gives
+\[
+ x_nx_{n+2}=K_na_{n+2}.                                         \tag{15}
+\]
+In particular,
+\[
+ a_{n+2}=\frac{x_nx_{n+2}}{K_n}.                                \tag{16}
+\]
+
+Eliminating the $a$'s from (14)--(15) gives an autonomous recurrence with
+alternating coefficients:
+\[
+ x_{n+3}=
+ \begin{cases}
+ \displaystyle
+ \frac{128x_nx_{n+2}(1+x_nx_{n+2})}
+      {x_{n-1}x_{n+1}},&n\text{ even},\\[4mm]
+ \displaystyle
+ \frac{x_nx_{n+2}(16+x_nx_{n+2})}
+      {512x_{n-1}x_{n+1}},&n\text{ odd}.
+ \end{cases}                                                     \tag{17}
+\]
+For completeness, (17) follows by substituting
+$a_j=x_{j-2}x_j/K_j$ into the definition of $x_{n+1}$ and cancelling
+$x_{n+1}$.  The initial values are
+\[
+ x_0=x_1=x_2=1,
+ \qquad x_3=16.                                                   \tag{18}
+\]
+
+\subsection{The fourteen-step return}
+
+Let
+\[
+ \Ot=\Ztwo,
+ \qquad
+ \Ut=\Ztwo^\times.
+\]
+We use $2^r\Ot$ and $2^r\Ut$ also for negative integers $r$.
+
+\begin{lemma}[Fourteen-step $2$-adic return]\label{lem:return14}
+Let $x_0,x_1,x_2,x_3\in\Q_2^\times$ satisfy
+\[
+ x_0,x_1,x_2\in\Ut,
+ \qquad x_3\in16\Ut,
+ \qquad x_0\equiv x_2\pmod4.                                  \tag{19}
+\]
+Generate $x_4,\ldots,x_{17}$ by (17).  Then
+\[
+\begin{array}{c|cccccccccccccc}
+r&0&1&2&3&4&5&6&7&8&9&10&11&12&13\\ \hline
+x_r\in
+&\Ut&\Ut&\Ut&2^4\Ut
+&\Ot&2^4\Ot&2^2\Ot&2^2\Ut&2^{-2}\Ut&2^2\Ut
+&2^2\Ot&2^4\Ot&\Ot&2^4\Ut.
+\end{array}                                                       \tag{20}
+\]
+At the end of the block,
+\[
+ x_{14},x_{15},x_{16}\in\Ut,
+ \qquad x_{17}\in16\Ut,
+ \qquad x_{14}\equiv x_{16}\equiv-x_0\pmod4.                  \tag{21}
+\]
+In particular, the hypotheses (19) return after fourteen steps.
+\end{lemma}
+
+\begin{proof}
+We give the complete finite calculation.  Write
+\[
+ x_0=u_0,\qquad x_1=u_1,\qquad x_2=u_2,\qquad x_3=16u_3,          \tag{22}
+\]
+where all $u_i$ are units and $u_2-u_0\in4\Ot$.  Normalize the
+remaining terms according to (20)--(21):
+\[
+\begin{array}{c|cccccccccccccc}
+r&4&5&6&7&8&9&10&11&12&13&14&15&16&17\\ \hline
+x_r
+&z_4&16z_5&4z_6&4z_7&z_8/4&4z_9&4z_{10}&16z_{11}
+&z_{12}&16z_{13}&z_{14}&z_{15}&z_{16}&16z_{17}.
+\end{array}                                                       \tag{23}
+\]
+Substitution in (17), with cancellation at each preceding line, gives the
+following straight-line identities:
+\[
+\begin{aligned}
+z_4&=\frac{u_1u_3(1+u_1u_3)}{2u_0u_2},\\
+z_5&=\frac{u_2z_4(1+u_2z_4)}{2u_1u_3},\\
+z_6&=\frac{(1+u_2z_4)(1+16u_3z_5)}{u_1},\\
+z_7&=\frac{(1+16u_3z_5)(1+4z_4z_6)}{u_2},\\
+z_8&=\frac{(1+4z_4z_6)(1+4z_5z_7)}{u_3},\\
+z_9&=\frac{z_6z_8(1+z_6z_8)}{2z_5z_7},\\
+z_{10}&=\frac{z_7z_9(1+z_7z_9)}{8z_6z_8},\\
+z_{11}&=\frac{z_8z_{10}(1+z_8z_{10})}{2z_7z_9},\\
+z_{12}&=\frac{2z_9z_{11}(1+4z_9z_{11})}{z_8z_{10}},\\
+z_{13}&=\frac{z_{10}z_{12}(1+4z_{10}z_{12})}{2z_9z_{11}},\\
+z_{14}&=\frac{2z_{11}z_{13}(1+16z_{11}z_{13})}{z_{10}z_{12}},\\
+z_{15}&=\frac{z_{12}z_{14}(1+z_{12}z_{14})}{2z_{11}z_{13}},\\
+z_{16}&=\frac{z_{13}z_{15}(1+z_{13}z_{15})}{2z_{12}z_{14}},\\
+z_{17}&=\frac{z_{14}z_{16}(1+z_{14}z_{16})}{2z_{13}z_{15}}.
+                                                                    \tag{24}
+\end{aligned}
+\]
+Although some denominators in the second half of (24) need not be units,
+all cancellations below are exact.  We now give the finite certificate in
+the form used in the formal proof.
+
+Put
+\[
+ \alpha=\vt(z_4),\qquad \gamma=\vt(1+u_2z_4),
+\]
+and define the three exceptional quotients
+\[
+ q_{10}=\frac{1+z_7z_9}{8z_6},\qquad
+ q_{15}=\frac{1+z_{12}z_{14}}{z_{10}},\qquad
+ q_{16}=\frac{1+z_{13}z_{15}}{2z_{12}}.                         \tag{25}
+\]
+We shall prove
+\[
+\begin{aligned}
+ &z_4,z_5,z_6\in\Ot,\qquad z_7,z_8,z_9\in\Ut,\\
+ &q_{10}\in\Ot,\qquad q_{15},q_{16}\in\Ut,\\
+ &z_{13},z_{14},z_{15},z_{16},z_{17}\in\Ut,\\
+ &z_{14}\equiv z_{16}\equiv-u_0\pmod4.                          \tag{26}
+\end{aligned}
+\]
+
+First, a unit squared is congruent to \(1\) modulo \(8\), and the sum of
+two \(2\)-adic units has positive valuation.  The first two lines of (24)
+therefore give
+\[
+ \vt(z_5)=\alpha+\gamma-1,\qquad \vt(z_6)=\gamma.
+\]
+Here \(\alpha\geq0\).  If \(\alpha=0\), then \(\gamma\geq1\); if
+\(\alpha>0\), then \(\gamma=0\) and \(\alpha\geq1\).  Hence
+\(z_4,z_5,z_6\in\Ot\).
+
+Set
+\[
+\begin{aligned}
+A&=1+u_2z_4,& B&=1+16u_3z_5,\\
+C&=1+4z_4z_6,& D&=1+4z_5z_7.
+\end{aligned}
+\]
+The element \(B\) is a unit.  Since \(z_4,z_6\in\Ot\), the element
+\(C=1+4z_4z_6\) is a unit as well.  The relevant identities are
+\[
+ z_6=\frac{AB}{u_1},\qquad
+ z_7=\frac{BC}{u_2},\qquad
+ z_8=\frac{CD}{u_3}.
+\]
+It follows successively that \(z_7\) is a unit, then that
+\(D=1+4z_5z_7\) is a unit, and finally that \(z_8\) is a unit.  Moreover
+\[
+ E:=\frac{u_1u_3+ABCD}{z_4}\in\Ut,                               \tag{27}
+\]
+and the sixth line of (24) reduces exactly to
+\[
+ z_9=\frac{DE}{u_1u_3}\in\Ut.                                  \tag{28}
+\]
+To verify (27), if \(z_4\) is a unit then \(A\) is even, so the numerator
+in (27) is a unit; division by the unit \(z_4\) preserves this.  If \(t=\vt(z_4)>0\), then
+\[
+ BCD\equiv1\pmod{2^{t+1}},\qquad A=1+u_2z_4.
+\]
+Writing \(p_0=u_1u_3\), the first line of (24) gives
+\[
+ p_0+1=\frac{2u_0u_2z_4}{p_0}.
+\]
+Consequently
+\[
+ p_0+ABCD
+ \equiv
+ u_2z_4\left(1+\frac{2u_0}{p_0}\right)
+ \pmod{2^{t+1}},
+\]
+whose coefficient of \(z_4\) is a unit.  This proves (27)--(28).
+
+We next prove that \(q_{10}\) is integral.  Put
+\[
+ s=\frac{2z_4A}{p_0},\qquad Q=BCD,\qquad L=\frac{Q-1}{s}.
+\]
+The preceding straight-line identities give
+\[
+ B=1+4u_2u_3s,\qquad
+ C=1+2u_3sB,\qquad
+ D=1+sBC,
+\]
+and hence, exactly,
+\[
+ L=4u_2u_3+2u_3B^2+(BC)^2.
+\]
+Thus \(L\equiv-1\pmod4\).  Also
+\[
+ p_0\equiv2z_4-1\pmod4,\qquad s\equiv2z_4A\pmod4.
+\]
+A direct factorization of the numerator of \(1+z_7z_9\) now gives
+\[
+ q_{10}=\frac{F\,u_1}{4u_2p_0^2B},
+ \qquad
+ F=u_0u_2+(p_0+2A)L+AsL^2.
+\]
+All factors outside \(F/4\) are units.  Using \(u_0\equiv u_2\pmod4\)
+and the preceding congruences,
+\[
+ F\equiv2z_4(A^2-u_2-1)\pmod4.
+\]
+Since
+\[
+ A^2-u_2-1=u_2(2z_4+u_2z_4^2-1),
+\]
+the right side is divisible by \(4\): if \(\alpha>0\), the factor
+\(2z_4\) already supplies two powers of \(2\); if \(\alpha=0\), then
+both terms inside the final parenthesis are even.  Hence
+\[
+ \vt(F)\geq2,\qquad q_{10}\in\Ot.
+\]
+
+The same identities also give the returned residue of \(z_9\):
+\[
+ z_9=\frac{D}{p_0^2}
+ \left(2u_0u_2+p_0u_2+2A^2L\right).
+\]
+Reduction modulo \(4\), using \(L\equiv-1\), gives
+\[
+ z_9\equiv-u_2\equiv-u_0\pmod4.
+\]
+The only apparent correction is \(2z_4(u_2-z_4)\); it is divisible by
+\(4\), since either \(z_4\) is even or both \(u_2\) and \(z_4\) are odd.
+
+For the second half of the block, write
+\[
+ r=q_{10},\qquad P=z_7z_9,
+\]
+and introduce
+\[
+\begin{aligned}
+H&=1+Pr,\\
+I&=1+2z_9rH,\\
+J&=1+4\frac{z_9}{z_8}rHI,\\
+K&=1+8\frac1{z_8}rHIJ.
+\end{aligned}
+\]
+Since \(r\in\Ot\), the element \(H\) is integral and \(I,J,K\) are
+units.  Exact simplification of (24) yields
+\[
+\begin{aligned}
+z_{10}&=\frac{Pr}{z_8},&
+z_{11}&=\frac{rH}{2},&
+z_{12}&=\frac{HI}{z_7},\\
+z_{13}&=\frac{IJ}{z_8},&
+z_{14}&=\frac{JK}{z_9}.
+\end{aligned}
+\]
+Define
+\[
+ L_{15}=\frac{HIJK-1}{r}.
+\]
+Successive expansion of \(I,J,K\) gives
+\[
+ L_{15}=P+2z_9H^2
+ +4\frac{z_9}{z_8}(HI)^2
+ +8\frac1{z_8}(HIJ)^2.
+\]
+The first summand is a unit and all the others have positive valuation,
+so \(L_{15}\) is a unit.  The exact formula
+\[
+ q_{15}=\frac{z_8}{P^2}\,(8z_6+L_{15})
+       =\frac{z_8}{P^2}\,\frac{P+HY}{r}.
+\]
+therefore proves \(q_{15}\in\Ut\).  The next normalized term satisfies
+\[
+ z_{15}=Kq_{15}\in\Ut.
+\]
+Moreover \(J\equiv K\equiv1\pmod4\), so
+\[
+ z_{14}=\frac{JK}{z_9}\equiv-u_0\pmod4.
+\]
+
+It remains to prove that \(q_{16}\) is a unit.  Put
+\[
+ Y=IJK,\qquad
+ T=\frac{Y-1}{H},\qquad
+ W=P+Y^2+PT.
+\]
+Exact expansion gives
+\[
+ T=2z_9r
+ +4\frac{z_9}{z_8}rI^2
+ +8\frac1{z_8}r(IJ)^2.
+\]
+The first summand has valuation \(\vt(r)+1\), while the other two have
+valuation at least \(\vt(r)+2\) and \(\vt(r)+3\).  Thus
+\[
+ \vt(T)=\vt(r)+1.
+\]
+Since \(Y-1=HT\), \(Y\) is a unit, and \(Y+1\) has positive valuation,
+\[
+ \vt(Y^2-1)\geq\vt(r)+2.
+\]
+On the other hand, \(P+1=8z_6r\), so
+\[
+ \vt(P+1)\geq\vt(r)+3.
+\]
+Consequently \(\vt(P+Y^2)\geq\vt(r)+2\), whereas
+\(\vt(PT)=\vt(r)+1\).  Therefore
+\[
+ \vt(W)=\vt(r)+1.
+\]
+Finally, exact cancellation in (24) gives
+\[
+ q_{16}=\frac{Wz_7}{2IP^2r}.
+\]
+The numerator and denominator have the same valuation
+\(\vt(r)+1\), proving \(q_{16}\in\Ut\).
+
+We still need the returned residue of \(z_{16}\).  Put
+\[
+ S=q_{15},\qquad M=z_{13}z_{15}=\frac{YS}{z_8}.
+\]
+Then
+\[
+ z_{16}=\frac{Mq_{16}}{z_{14}},
+ \qquad q_{16}=\frac{1+M}{2z_{12}}.
+\]
+Because \(z_{14}\) is a unit and \(z_{14}^2\equiv1\pmod8\), it is enough
+to prove
+\[
+ Mq_{16}\equiv1\pmod4.                                         \tag{29}
+\]
+
+Suppose first that \(\vt(r)>0\).  Then
+\(P\equiv-1\pmod{16}\).  The exact formula for \(q_{15}\) gives
+\[
+ \frac{P+HY}{r}\equiv
+ P+2z_9+4\frac{z_9}{z_8}\pmod8.
+\]
+This follows by substituting the displayed expansions of \(I,J,K\);
+together with \(P\equiv-1\pmod{16}\), it gives
+\(M\equiv1\pmod4\).  If
+\(\vt(r)\geq2\), reduction of the exact formulas modulo \(4\) gives
+\[
+ \frac{M-1}{2}\equiv z_9+1\equiv z_7-1,\qquad
+ z_{12}\equiv z_7.
+\]
+If \(\vt(r)=1\), the additional first-order contribution of \(I\) gives
+\[
+ \frac{M-1}{2}\equiv z_9+1+z_9rH,\qquad
+ z_{12}\equiv z_7+z_9r.
+\]
+In both subcases,
+\[
+ 1+\frac{M-1}{2}\equiv z_{12}\pmod4,
+\]
+and hence \(M(1+M)/2\equiv z_{12}\pmod4\).  This proves (29).
+
+Now suppose that \(\vt(r)=0\).  Then \(r\) is a unit and \(H\) has
+positive valuation.  The exact formula for \(q_{15}\) gives
+\[
+ M=\frac{Y(P+HY)}{P^2r}\equiv P\equiv-1\pmod4.
+\]
+Writing \(T=(Y-1)/H\) as above and setting
+\[
+ V=\frac12(P+Y^2+PT),
+\]
+the expansion of \(T\), together with \(P+1\equiv0\pmod8\), gives
+\[
+ V\equiv P(z_9r+2)\pmod4.
+\]
+Since
+\[
+ q_{16}=\frac{z_7V}{P^2rI},
+\]
+and \(P^2\equiv I\equiv1\pmod4\), this reduces to
+\[
+ q_{16}\equiv
+ \frac{z_7(z_9r+2)P}{r}\equiv-1\pmod4.
+\]  Thus
+\(Mq_{16}\equiv1\pmod4\), proving (29) in the second case as well.
+It follows that
+\[
+ z_{16}\equiv z_{14}\equiv-u_0\pmod4.
+\]
+
+For completeness, let
+\[
+ \delta=\vt(z_{10}),\qquad
+ \epsilon=\vt(z_{11}),\qquad
+ \zeta=\vt(z_{12}).
+\]
+Because \(P,z_8\) are units, the formula for \(z_{10}\) gives
+\(\delta=\vt(r)\geq0\).  The next two formulas give
+\[
+ \epsilon=\delta+\vt(1+z_8z_{10})-1,\qquad
+ \zeta=1+\epsilon-\delta.
+\]
+If \(\delta>0\), then \(\vt(1+z_8z_{10})=0\), so
+\(\epsilon=\delta-1\geq0\) and \(\zeta=0\).  If \(\delta=0\), then
+\(z_8z_{10}\) is a unit, so
+\(\vt(1+z_8z_{10})\geq1\); hence \(\epsilon\geq0\) and
+\(\zeta=1+\epsilon\geq1\).
+
+The unit properties of \(q_{15}\) and \(q_{16}\) say precisely that
+\[
+ \vt(1+z_{12}z_{14})=\delta,\qquad
+ \vt(1+z_{13}z_{15})=1+\zeta.
+\]
+Thus \(z_{13},z_{14},z_{15},z_{16}\) are units.  Finally,
+\(z_{14}z_{16}\equiv1\pmod4\), so
+\(\vt(1+z_{14}z_{16})=1\); the last line of (24) then makes \(z_{17}\)
+a unit.  This establishes all of (26), hence (20)--(21).
+\end{proof}
+
+\subsection{Completion of the $2$-adic argument}
+
+The initial transformed window (18) satisfies the hypotheses of Lemma
+\ref{lem:return14}.  Because the length~14 is even, the parity in (17) is
+unchanged when the lemma is iterated.  Hence, for all $n\geq0$,
+\[
+ \vt(x_n)\geq \ell_{n\bmod14},                                  \tag{30}
+\]
+where
+\[
+ (\ell_0,\ldots,\ell_{13})
+ =(0,0,0,4,0,4,2,2,-2,2,2,4,0,4).                              \tag{31}
+\]
+
+By (16),
+\[
+ \vt(a_{n+2})
+ =\vt(x_n)+\vt(x_{n+2})-\vt(K_n).                              \tag{32}
+\]
+For even $n$, $\vt(K_n)=0$; for odd $n$, $\vt(K_n)=4$.  Substitution of
+(31) into the right side of (32) gives, as $n$ runs through the residue
+classes modulo~14,
+\[
+ (0,0,0,4,2,2,0,0,0,2,2,4,0,0).                              \tag{33}
+\]
+Every entry is nonnegative.  Therefore
+\[
+ \vt(a_n)\geq0
+ \qquad(n\geq0).                                                \tag{34}
+\]
+
+\section{Conclusion}
+
+For every $n$, the positive rational number $a_n$ has nonnegative valuation
+at every odd prime by Section~2 and at the prime~2 by (34).  Its reduced
+denominator therefore has no prime divisor, so it is~1.  This proves
+Theorem~\ref{thm:main}.  Every identity and valuation argument used above,
+including the finite cancellation certificate (26), has also been checked
+in Lean~4 with Mathlib.
+
+\begin{remark}
+The single negative entry $-2$ in the transformed valuation word (31) is
+harmless.  Formula (16) recovers $a_{n+2}$ from a product of two transformed
+terms, and the paired lower bounds in (33) are all nonnegative.  The
+exceptional high spikes seen in the sequence $\vt(a_n)$ merely increase some
+of the non-unit variables $z_4,z_5,z_6,z_{10},z_{11},z_{12}$; they do not
+disturb the fourteen-step return tube.
+\end{remark}
+
+\end{document}
+
+
+
+
+
+
